@@ -9,12 +9,14 @@ class User(
     val registrationDateTime: LocalDateTime,
     val email: String,
 ) {
+    // A
     override fun toString(): String =
         "Id: $id\n" +
             "Name: $name\n" +
             "RegistrationDateTime: $registrationDateTime\n" +
             "Email: $email"
 
+    // A
     fun getCSV(): List<String> {
         val dataList = mutableListOf<String>()
         dataList.add(id.toString())

@@ -10,9 +10,11 @@ import ru.yarsu.data.MachineStorage
 import ru.yarsu.data.UserReader
 import ru.yarsu.data.UserStorage
 import ru.yarsu.web.routes.ApplicationRoutes
+import kotlin.collections.mutableListOf
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
+// A
 fun main(arguments: Array<String>) {
     var errorCode = 0
     val args = Args()
@@ -55,21 +57,24 @@ fun main(arguments: Array<String>) {
         val csvMachineFile = args.csvMachineFile ?: ""
         val csvLaunderetteFile = args.csvLaunderetteFile ?: ""
         val csvUserFile = args.csvUserFile ?: ""
-        if (machineReader.readData(csvMachineFile) == 1) {
+        if (machineReader.checkFile(csvMachineFile) == 1) {
             println("Error: file not found «$csvMachineFile»")
             errorCode = 1
-        } else {
-            if (launderetteReader.readData(csvLaunderetteFile) == 1) {
-                println("Error: file not found «$csvLaunderetteFile»")
-                errorCode = 1
-            } else {
-                if (userReader.readData(csvUserFile) == 1) {
-                    println("Error: file not found «$csvUserFile»")
-                    errorCode = 1
-                }
-            }
         }
+        if (launderetteReader.checkFile(csvLaunderetteFile) == 1) {
+            println("Error: file not found «$csvLaunderetteFile»")
+            errorCode = 1
+        }
+        if (userReader.checkFile(csvUserFile) == 1) {
+            println("Error: file not found «$csvUserFile»")
+            errorCode = 1
+        }
+
         if (errorCode == 0) {
+            machineReader.readData(csvMachineFile)
+            launderetteReader.readData(csvLaunderetteFile)
+            userReader.readData(csvUserFile)
+
             val storageUser = UserStorage(userReader.getData())
             val storageLaunderette = LaunderetteStorage(launderetteReader.getData())
             val storageMachine = MachineStorage(machineReader.getData())
@@ -106,6 +111,7 @@ fun main(arguments: Array<String>) {
     }
 }
 
+// A
 fun saveData(
     storageMachine: MachineStorage,
     storageLaunderette: LaunderetteStorage,
@@ -115,6 +121,13 @@ fun saveData(
     csvUserFile: String,
 ) {
     val writer = csvWriter()
+    writer.writeAll(getExitDataMachine(storageMachine), csvMachineFile)
+    writer.writeAll(getExitDataLaunderette(storageLaunderette), csvLaunderetteFile)
+    writer.writeAll(getExitDataUser(storageUser), csvUserFile)
+}
+
+// A
+fun getExitDataMachine(storageMachine: MachineStorage): MutableList<List<String?>> {
     val listHeadersMachine =
         listOf(
             "Id",
@@ -128,6 +141,16 @@ fun saveData(
             "Specialist",
             "Launderette",
         )
+    val exitDataMachine = mutableListOf<List<String?>>()
+    exitDataMachine.add(listHeadersMachine)
+    storageMachine.getAll().values.forEach {
+        exitDataMachine.add(it.getCSV())
+    }
+    return exitDataMachine
+}
+
+// A
+fun getExitDataLaunderette(storageLaunderette: LaunderetteStorage): MutableList<List<String>> {
     val listHeadersLaunderette =
         listOf(
             "Id",
@@ -135,6 +158,16 @@ fun saveData(
             "PhoneNumber",
             "WorkingHours",
         )
+    val exitDataLaunderette = mutableListOf<List<String>>()
+    exitDataLaunderette.add(listHeadersLaunderette)
+    storageLaunderette.getAll().values.forEach {
+        exitDataLaunderette.add(it.getCSV())
+    }
+    return exitDataLaunderette
+}
+
+// A
+fun getExitDataUser(storageUser: UserStorage): MutableList<List<String>> {
     val listHeadersUser =
         listOf(
             "Id",
@@ -142,22 +175,10 @@ fun saveData(
             "RegistrationDateTime",
             "Email",
         )
-    val exitDataMachine = mutableListOf<List<String?>>()
-    val exitDataLaunderette = mutableListOf<List<String>>()
     val exitDataUser = mutableListOf<List<String>>()
-    exitDataMachine.add(listHeadersMachine)
-    storageMachine.getAll().values.forEach {
-        exitDataMachine.add(it.getCSV())
-    }
-    exitDataLaunderette.add(listHeadersLaunderette)
-    storageLaunderette.getAll().values.forEach {
-        exitDataLaunderette.add(it.getCSV())
-    }
     exitDataUser.add(listHeadersUser)
     storageUser.getAll().values.forEach {
         exitDataUser.add((it.getCSV()))
     }
-    writer.writeAll(exitDataMachine, csvMachineFile)
-    writer.writeAll(exitDataLaunderette, csvLaunderetteFile)
-    writer.writeAll(exitDataUser, csvUserFile)
+    return exitDataUser
 }

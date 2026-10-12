@@ -10,5 +10,8 @@ interface GetAllUsersOperation {
 class GetAllUsersOperationImpl(
     private val storage: UserStorage,
 ) : GetAllUsersOperation {
-    override fun getAll(): Collection<User> = storage.getAll().values.sortedWith(compareBy<User> { it.name }.thenBy { it.id })
+    override fun getAll(): Collection<User> =
+        storage.getAll()
+            .values
+            .sortedWith(compareBy<User> { it.name }.thenBy { it.id })
 }

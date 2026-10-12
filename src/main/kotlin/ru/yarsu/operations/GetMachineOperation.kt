@@ -12,11 +12,6 @@ class GetMachineOperationImpl(
     private val machineStorage: MachineStorage,
 ) : GetMachineOperation {
     override fun get(id: UUID): Machine? {
-        machineStorage.getAll().forEach {
-            if (it.key == id) {
-                return it.value
-            }
-        }
-        return null
+        return machineStorage.get(id)
     }
 }

@@ -2,6 +2,7 @@ package ru.yarsu.data.json
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+// D
 data class AddMachine(
     @JsonProperty("Title")
     val title: String? = null,

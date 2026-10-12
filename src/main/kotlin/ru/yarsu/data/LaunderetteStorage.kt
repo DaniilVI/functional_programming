@@ -13,10 +13,13 @@ class LaunderetteStorage(
         }
     }
 
+    // A
     fun getAll(): Map<UUID, Launderette> = list
 
+    // A
     fun get(id: UUID): Launderette? = list.getOrDefault(id, null)
 
+    // A
     fun add(launderette: Launderette): Int {
         if (!list.containsKey(launderette.id)) {
             list[launderette.id] = launderette
@@ -26,6 +29,7 @@ class LaunderetteStorage(
         }
     }
 
+    // A
     fun remove(id: UUID): Int =
         if (list.remove(id) == null) {
             1

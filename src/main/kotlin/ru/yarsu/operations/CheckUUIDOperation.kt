@@ -12,38 +12,32 @@ interface CheckUUIDOperation {
 class CheckUserUUIDOperationImpl(
     private val userStorage: UserStorage,
 ) : CheckUUIDOperation {
+    // A
     override fun check(id: UUID): Boolean {
-        userStorage.getAll().values.forEach {
-            if (it.id == id) {
-                return true
-            }
-        }
-        return false
+        return checkInMap(id, userStorage.getAll())
     }
 }
 
 class CheckLaunderetteUUIDOperationImpl(
     private val launderetteStorage: LaunderetteStorage,
 ) : CheckUUIDOperation {
+    // A
     override fun check(id: UUID): Boolean {
-        launderetteStorage.getAll().values.forEach {
-            if (it.id == id) {
-                return true
-            }
-        }
-        return false
+        return checkInMap(id, launderetteStorage.getAll())
     }
 }
 
 class CheckMachineUUIDOperationImpl(
     private val machineStorage: MachineStorage,
 ) : CheckUUIDOperation {
+    // A
     override fun check(id: UUID): Boolean {
-        machineStorage.getAll().values.forEach {
-            if (it.id == id) {
-                return true
-            }
-        }
-        return false
+        return checkInMap(id, machineStorage.getAll())
     }
 }
+
+// C
+fun checkInMap(id: UUID, storage: Map<UUID, Any>): Boolean {
+    return storage.containsKey(id)
+}
+

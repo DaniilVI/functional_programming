@@ -14,6 +14,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(kotlin("stdlib-jdk8"))
+    implementation("dev.forkhandles:result4k:2.22.2.1")
 }
 
 tasks.test {

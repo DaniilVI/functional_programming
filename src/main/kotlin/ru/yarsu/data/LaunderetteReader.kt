@@ -2,41 +2,61 @@ package ru.yarsu.data
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import java.io.File
-import java.io.FileNotFoundException
+import dev.forkhandles.result4k.Result
+import dev.forkhandles.result4k.Success
+import dev.forkhandles.result4k.Failure
 import java.util.UUID.fromString
 
 class LaunderetteReader {
     private val dataList = mutableListOf<Launderette>()
 
-    private fun createLaunderette(args: List<String>): Launderette {
-        val launderette =
-            Launderette(
-                fromString(args[0]),
-                args[1],
-                args[2],
-                args[3],
-            )
-        return launderette
+    // С
+    private fun createLaunderette(args: List<String>): Result<Launderette, Int> {
+        try {
+            val launderette =
+                Launderette(
+                    fromString(args[0]),
+                    args[1],
+                    args[2],
+                    args[3],
+                )
+
+            return Success(launderette)
+        } catch (_: Exception) {
+            return Failure(-1)
+        }
     }
 
-    fun readData(fileName: String): Int {
+    // A
+    fun readData(fileName: String) {
+        val file = File(fileName)
+        val reader = csvReader()
+        val rows: List<List<String>> = reader.readAll(file).drop(1)
+        for (i in rows) {
+            when (val result = createLaunderette(i)) {
+                is Success -> {
+                    dataList.add(result.value)
+                }
+
+                is Failure -> {
+                    println("Error: cannot create launderette with id: ${i[0]}")
+                }
+            }
+        }
+    }
+
+    // C
+    fun checkFile(fileName: String): Int {
         if (fileName == "") {
             return 1
         }
         val file = File(fileName)
-        val reader = csvReader()
-        var rows: List<List<String>>
-        try {
-            rows = reader.readAll(file)
-            rows = rows.drop(1)
-        } catch (e: FileNotFoundException) {
+        if (!file.exists() || !file.isFile()) {
             return 1
-        }
-        for (i in rows) {
-            dataList.add(createLaunderette(i))
         }
         return 0
     }
 
+    // A
     fun getData(): MutableList<Launderette> = dataList
 }

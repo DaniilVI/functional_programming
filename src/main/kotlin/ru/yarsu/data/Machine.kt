@@ -15,6 +15,7 @@ class Machine(
     var specialist: UUID,
     var launderette: UUID?,
 ) {
+    // A
     override fun toString(): String =
         "id = $id," +
             " title = $title," +
@@ -27,6 +28,7 @@ class Machine(
             " specialist = $specialist" +
             " launderette = $launderette"
 
+    // A
     fun getCSV(): List<String?> {
         val dataList = mutableListOf<String?>()
         dataList.add(id.toString())

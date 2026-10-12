@@ -13,10 +13,13 @@ class UserStorage(
         }
     }
 
+    // A
     fun getAll(): Map<UUID, User> = list
 
+    // A
     fun get(id: UUID): User? = list.getOrDefault(id, null)
 
+    // A
     fun add(user: User): Int {
         if (!list.containsKey(user.id)) {
             list[user.id] = user
@@ -26,6 +29,7 @@ class UserStorage(
         }
     }
 
+    // A
     fun remove(id: UUID): Int =
         if (list.remove(id) == null) {
             1
