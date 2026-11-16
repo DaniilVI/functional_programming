@@ -12,6 +12,6 @@ class GetUserFieldOperationImpl(
 ) : GetUserFieldOperation {
     override fun getEmail(id: UUID): String {
         val user = userStorage.get(id)
-        return user?.email ?: ""
+        return user?.getEmail() ?: ""
     }
 }

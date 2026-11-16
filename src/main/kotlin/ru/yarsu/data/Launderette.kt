@@ -3,18 +3,18 @@ package ru.yarsu.data
 import java.util.UUID
 
 class Launderette(
-    val id: UUID,
-    val address: String,
+    override val id: UUID,
+    private val address: String,
     val phoneNumber: String,
     val workingHours: String,
-) {
-    // A
+): Identifiable {
+    // C
     override fun toString(): String =
         "Id = $id\n" +
             "Address = $address\n" +
             "PhoneNumber = $phoneNumber\n" +
             "WorkingHours = $workingHours\n"
-    // A
+    // C
     fun getCSV(): List<String> {
         val dataList = mutableListOf<String>()
         dataList.add(id.toString())
@@ -23,4 +23,7 @@ class Launderette(
         dataList.add(workingHours)
         return dataList
     }
+
+    // C
+    fun getAddress(): String = address
 }

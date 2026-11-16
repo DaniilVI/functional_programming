@@ -21,13 +21,13 @@ class CreateUserOperationImpl(
         email: String,
         registrationDateTime: LocalDateTime,
     ): UUID? {
-        userStorage.getAll().values.forEach {
-            if (it.email == email) {
+        userStorage.getAll().forEach {
+            if (it.getEmail() == email) {
                 return null
             }
         }
         var userId = UUID.randomUUID()
-        while (userStorage.getAll().containsKey(userId)) {
+        while (userStorage.contains(userId)) {
             userId = UUID.randomUUID()
         }
         val user =

@@ -1,0 +1,75 @@
+flowchart TD
+
+    subgraph layer2 [" "]
+        direction LR
+        subgraph nodes2 [" "]
+            G["Op2.delete()"]:::typeA
+            Op3["Op1.getAll()"]:::typeA
+            Op4["Op3.createUser()"]:::typeA
+            Op5["Op4.get()"]:::typeA
+            Op6["Op5.filterMachine()"]:::typeA
+        end
+        L2["Обработка данных"]
+    end
+
+    subgraph layer3 [" "]
+        direction LR
+        subgraph nodes3 [" "]
+            C["getAll()"]:::typeA
+            D["get()"]:::typeA
+            E["add()"]:::typeA
+            F["remove()"]:::typeA
+            F1["contains()"]:::typeA
+            F2["filter()"]:::typeA
+        end
+        L3["Обобщенные методы для работы с хранилищем"]
+    end
+
+    subgraph layer4 [" "]
+        direction LR
+        subgraph nodes4 [" "]
+            I[".remove()"]:::typeA
+            I1[".containsKey()"]:::typeB
+            I2[".getOrDefault()"]:::typeB
+            I4["Обращение по ключу"]:::typeB
+        end
+        L4["Средства языка Kotlin"]
+    end
+
+    subgraph Legend ["Легенда"]
+        direction LR
+        Leg1["Действия"]:::typeA
+        Leg2["Вычисления"]:::typeB
+        Leg3["Данные"]:::typeC
+    end
+
+    layer3 ~~~ Legend
+
+    Op3 --> C
+    Op4 --> C
+    Op4 --> E
+    Op4 --> F1
+    L2 --> D
+    Op5 --> C
+    Op6 --> F2
+    G --> F
+    G --> C
+    E --> I1
+    E --> I4
+    F --> I
+    D --> I2
+    C --> L4
+    F1 --> L4
+    F2 --> L4
+
+    classDef typeA fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#856404,font-size:20px;
+    classDef typeB fill:#cce5ff,stroke:#007bff,stroke-width:2px,color:#004085,font-size:20px;
+    classDef typeC fill:#d4edda,stroke:#28a745,stroke-width:2px,color:#155724,font-size:20px;
+
+    classDef note fill:none,stroke:none,color:#555,font-style:italic,text-align:left,font-size:20px;
+    class L2,L3,L4 note;
+
+    style nodes2 fill:none,stroke:none;
+    style nodes3 fill:none,stroke:none;
+    style nodes4 fill:none,stroke:none;
+    style Legend fill:#f8f9fa,stroke:#dee2e6,stroke-dasharray: 5 5;

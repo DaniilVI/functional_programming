@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 class Machine(
-    val id: UUID,
+    override val id: UUID,
     var title: String,
     var type: String,
     var startDateTime: LocalDateTime,
@@ -14,7 +14,7 @@ class Machine(
     var duration: Int,
     var specialist: UUID,
     var launderette: UUID?,
-) {
+): Identifiable {
     // A
     override fun toString(): String =
         "id = $id," +

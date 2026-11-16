@@ -1,0 +1,33 @@
+classDiagram
+    class Machine {
+        +UUID id
+        +String title
+        +String type
+        +LocalDateTime startDateTime
+        +Boolean condition
+        +Double capacity
+        +Int price
+        +Int duration
+        +UUID specialist
+        +UUID launderette
+        +getCSV() List~String?~
+    }
+
+    class Launderette {
+        +UUID id
+        +String address
+        +String phoneNumber
+        +String workingHours
+        +getCSV() List~String~
+    }
+
+    class User {
+        +UUID id
+        +String name
+        +LocalDateTime registrationDateTime
+        +String email
+        +getCSV() List~String~
+    }
+
+    Launderette "1" ..> "0..*" Machine : содержит (launderette)
+    User "1" ..> "0..*" Machine : обслуживает (specialist)

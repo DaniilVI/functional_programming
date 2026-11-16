@@ -69,7 +69,7 @@ class AddNewUserHandler(
             obj(
                 "Id" to string(user?.id.toString()),
                 "Name" to string(user?.name.toString()),
-                "Email" to string(user?.email.toString()),
+                "Email" to string(user?.getEmail().toString()),
             )
         }
 

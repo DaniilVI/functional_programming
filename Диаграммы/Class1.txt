@@ -1,0 +1,40 @@
+classDiagram
+    class Identifiable {
+        <<interface>>
+        +UUID id
+    }
+
+    class Launderette {
+        +UUID id
+        +String address
+        +String phoneNumber
+        +String workingHours
+        +toString() String
+        +getCSV() List~String~
+    }
+
+    class User {
+        +UUID id
+    }
+
+    class Storage~T : Identifiable~ {
+        #MutableMap~UUID, T~ items
+        +getAll() Collection~T~
+        +get(UUID id) T?
+        +add(T item) Int
+        +remove(UUID id) Int
+        +contains(UUID id) Boolean
+        +filter((T) -> Boolean predicate) List~T~
+    }
+
+    class LaunderetteStorage {
+    }
+
+    class UserStorage {
+    }
+
+    Identifiable <|.. Launderette : implements
+    Identifiable <|.. User : implements
+    Storage <|-- LaunderetteStorage : extends
+    Storage <|-- UserStorage : extends
+    Storage o-- Identifiable : stores

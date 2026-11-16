@@ -219,7 +219,7 @@ class GetJsonMachineFieldsOperationImpl(
                 specialistError = "Ожидается корректный UUID"
             } else {
                 specialistError =
-                    if (!userStorage.getAll().containsKey(fromString(specialist))) {
+                    if (!userStorage.contains(fromString(specialist))) {
                         "Работник с таким UUID не найден"
                     } else {
                         null
@@ -247,7 +247,7 @@ class GetJsonMachineFieldsOperationImpl(
                 launderetteError = "Ожидается корректный UUID"
             } else {
                 launderetteError =
-                    if (!launderetteStorage.getAll().containsKey(fromString(launderette))) {
+                    if (!launderetteStorage.contains(fromString(launderette))) {
                         "Прачечная с таким UUID не найден"
                     } else {
                         null
@@ -451,7 +451,7 @@ class GetJsonEditMachineFieldsOperationImpl(
                 specialistError = "Ожидается корректный UUID"
             } else {
                 specialistError =
-                    if (!userStorage.getAll().containsKey(fromString(specialist))) {
+                    if (!userStorage.contains(fromString(specialist))) {
                         "Работник с таким UUID не найден"
                     } else {
                         null
@@ -479,7 +479,7 @@ class GetJsonEditMachineFieldsOperationImpl(
                 launderetteError = "Ожидается корректный UUID"
             } else {
                 launderetteError =
-                    if (!launderetteStorage.getAll().containsKey(fromString(launderette))) {
+                    if (!launderetteStorage.contains(fromString(launderette))) {
                         "Прачечная с таким UUID не найден"
                     } else {
                         null

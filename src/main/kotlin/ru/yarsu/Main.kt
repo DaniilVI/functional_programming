@@ -143,7 +143,7 @@ fun getExitDataMachine(storageMachine: MachineStorage): MutableList<List<String?
         )
     val exitDataMachine = mutableListOf<List<String?>>()
     exitDataMachine.add(listHeadersMachine)
-    storageMachine.getAll().values.forEach {
+    storageMachine.getAll().forEach {
         exitDataMachine.add(it.getCSV())
     }
     return exitDataMachine
@@ -160,7 +160,7 @@ fun getExitDataLaunderette(storageLaunderette: LaunderetteStorage): MutableList<
         )
     val exitDataLaunderette = mutableListOf<List<String>>()
     exitDataLaunderette.add(listHeadersLaunderette)
-    storageLaunderette.getAll().values.forEach {
+    storageLaunderette.getAll().forEach {
         exitDataLaunderette.add(it.getCSV())
     }
     return exitDataLaunderette
@@ -177,7 +177,7 @@ fun getExitDataUser(storageUser: UserStorage): MutableList<List<String>> {
         )
     val exitDataUser = mutableListOf<List<String>>()
     exitDataUser.add(listHeadersUser)
-    storageUser.getAll().values.forEach {
+    storageUser.getAll().forEach {
         exitDataUser.add((it.getCSV()))
     }
     return exitDataUser

@@ -14,12 +14,8 @@ class GetLaunderetteFieldOperationImpl(
         if (id == null) {
             return null
         } else {
-            launderetteStorage.getAll().values.forEach {
-                if (it.id == id) {
-                    return it.address
-                }
-            }
-            return null
+            val launderette = launderetteStorage.get(id)
+            return launderette?.getAddress()
         }
     }
 }

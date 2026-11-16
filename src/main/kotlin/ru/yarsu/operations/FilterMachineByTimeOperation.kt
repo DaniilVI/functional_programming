@@ -18,24 +18,24 @@ class FilterMachineByTimeOperationImpl(
     private val storage: MachineStorage,
 ) : FilterMachineByTimeOperation {
     override fun timeToChange(nowDataTime: LocalDateTime): Collection<Machine> =
-        storage.getAll().values.filter { !it.condition || nowDataTime.minusYears(5) > it.startDateTime }
+        storage.filter { !it.condition || nowDataTime.minusYears(5) > it.startDateTime }
 
     override fun wornOut(nowDataTime: LocalDateTime): Collection<Machine> =
-        storage.getAll().values.filter {
+        storage.filter {
             it.condition &&
                 nowDataTime.minusYears(3) >= it.startDateTime &&
                 nowDataTime.minusYears(5) <= it.startDateTime
         }
 
     override fun works(nowDataTime: LocalDateTime): Collection<Machine> =
-        storage.getAll().values.filter {
+        storage.filter {
             it.condition &&
                 nowDataTime.minusMonths(6) >= it.startDateTime &&
                 nowDataTime.minusYears(3) < it.startDateTime
         }
 
     override fun new(nowDataTime: LocalDateTime): Collection<Machine> =
-        storage.getAll().values.filter {
+        storage.filter {
             it.condition && nowDataTime.minusMonths(6) < it.startDateTime
         }
 }

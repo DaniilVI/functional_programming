@@ -4,19 +4,19 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 class User(
-    val id: UUID,
+    override val id: UUID,
     val name: String,
     val registrationDateTime: LocalDateTime,
-    val email: String,
-) {
-    // A
+    private val email: String,
+): Identifiable {
+    // C
     override fun toString(): String =
         "Id: $id\n" +
             "Name: $name\n" +
             "RegistrationDateTime: $registrationDateTime\n" +
             "Email: $email"
 
-    // A
+    // C
     fun getCSV(): List<String> {
         val dataList = mutableListOf<String>()
         dataList.add(id.toString())
@@ -25,4 +25,7 @@ class User(
         dataList.add(email)
         return dataList
     }
+
+    // C
+    fun getEmail(): String = email
 }

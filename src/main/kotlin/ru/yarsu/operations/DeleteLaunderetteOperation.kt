@@ -14,7 +14,7 @@ class DeleteLaunderetteOperationImpl(
 ) : DeleteLaunderetteOperation {
     override fun delete(id: UUID): Int {
         if (launderetteStorage.remove(id) == 0) {
-            machineStorage.getAll().values.forEach {
+            machineStorage.getAll().forEach {
                 if (it.launderette == id) {
                     it.launderette = null
                 }

@@ -11,8 +11,8 @@ class GetUserFromEmailOperationImpl(
     private val userStorage: UserStorage,
 ) : GetUserOperation {
     override fun get(email: String): User? {
-        userStorage.getAll().values.forEach {
-            if (it.email == email) {
+        userStorage.getAll().forEach {
+            if (it.getEmail() == email) {
                 return it
             }
         }

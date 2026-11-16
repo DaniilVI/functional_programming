@@ -14,7 +14,7 @@ class CheckUserUUIDOperationImpl(
 ) : CheckUUIDOperation {
     // A
     override fun check(id: UUID): Boolean {
-        return checkInMap(id, userStorage.getAll())
+        return userStorage.contains(id)
     }
 }
 
@@ -23,7 +23,7 @@ class CheckLaunderetteUUIDOperationImpl(
 ) : CheckUUIDOperation {
     // A
     override fun check(id: UUID): Boolean {
-        return checkInMap(id, launderetteStorage.getAll())
+        return launderetteStorage.contains(id)
     }
 }
 
@@ -32,12 +32,6 @@ class CheckMachineUUIDOperationImpl(
 ) : CheckUUIDOperation {
     // A
     override fun check(id: UUID): Boolean {
-        return checkInMap(id, machineStorage.getAll())
+        return machineStorage.contains(id)
     }
 }
-
-// C
-fun checkInMap(id: UUID, storage: Map<UUID, Any>): Boolean {
-    return storage.containsKey(id)
-}
-

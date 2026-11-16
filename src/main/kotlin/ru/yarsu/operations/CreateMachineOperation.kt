@@ -34,7 +34,7 @@ class CreateMachineOperationImpl(
         launderette: UUID?,
     ): UUID {
         var machineId = UUID.randomUUID()
-        while (machineStorage.getAll().containsKey(machineId)) {
+        while (machineStorage.contains(machineId)) {
             machineId = UUID.randomUUID()
         }
         val machine =

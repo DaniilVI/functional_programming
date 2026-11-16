@@ -11,5 +11,6 @@ interface FilterMachineByTypeOperation {
 class FilterMachineByTypeOperationImpl(
     private val storage: MachineStorage,
 ) : FilterMachineByTypeOperation {
-    override fun get(type: Type): Collection<Machine> = storage.getAll().values.filter { it.type == type.russianName }
+    // A
+    override fun get(type: Type): Collection<Machine> = storage.filter { it.type == type.russianName }
 }

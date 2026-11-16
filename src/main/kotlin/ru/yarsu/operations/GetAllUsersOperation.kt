@@ -12,6 +12,5 @@ class GetAllUsersOperationImpl(
 ) : GetAllUsersOperation {
     override fun getAll(): Collection<User> =
         storage.getAll()
-            .values
             .sortedWith(compareBy<User> { it.name }.thenBy { it.id })
 }

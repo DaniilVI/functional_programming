@@ -1,0 +1,34 @@
+classDiagram
+
+    class Machine {
+        +UUID id
+        +String title
+        +String type
+        +LocalDateTime startDateTime
+        +Boolean condition
+        +Double capacity
+        +Int price
+        +Int duration
+        +UUID specialist
+        +UUID launderette
+        +getCSV() List~String?~
+    }
+
+    class MachineReader {
+        -MutableList~Machine~ dataList
+        +readData(fileName: String) Int
+        -createMachine(args: List~String~) Result~Machine, String?~
+        +checkFile(fileName: String) Int
+        +getData() MutableList~Machine~
+    }
+
+    class MachineStorage {
+        -Map~UUID, Machine~ list
+        +getAll() Map~UUID, Machine~
+        +get(id: UUID) Machine?
+        +add(machine: Machine) Int
+        +remove(id: UUID) Int
+    }
+
+    MachineReader --> Machine : создаёт
+    MachineStorage o-- Machine : хранит

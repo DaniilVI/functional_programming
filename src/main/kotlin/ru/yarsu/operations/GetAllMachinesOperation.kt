@@ -10,5 +10,5 @@ interface GetAllMachinesOperation {
 class GetAllMachinesOperationImpl(
     private val storage: MachineStorage,
 ) : GetAllMachinesOperation {
-    override fun getAll(): Collection<Machine> = storage.getAll().values.sortedWith(compareBy<Machine> { it.id })
+    override fun getAll(): Collection<Machine> = storage.getAll().sortedWith(compareBy<Machine> { it.id })
 }

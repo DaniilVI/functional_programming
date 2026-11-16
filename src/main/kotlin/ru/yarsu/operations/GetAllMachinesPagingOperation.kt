@@ -19,7 +19,6 @@ class GetAllMachinesPagingOperationImpl(
     ): Collection<Machine> =
         storage
             .getAll()
-            .values
             .sortedWith(compareBy<Machine> { it.startDateTime }.thenBy { it.id })
             .filterIndexed { index, _ ->
                 index >= (page - 1) * count && index < page * count

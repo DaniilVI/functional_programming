@@ -20,10 +20,7 @@ class FilterMachinesByWeightAndBudgetOperationImpl(
         weight: Double,
         budget: Int,
     ): Collection<Machine> =
-        storage
-            .getAll()
-            .values
-            .filter {
+        storage.filter {
                 it.launderette == launderetteId &&
                     it.condition &&
                     it.capacity >= weight &&

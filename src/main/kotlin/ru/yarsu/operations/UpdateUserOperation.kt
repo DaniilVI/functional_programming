@@ -17,7 +17,7 @@ class UpdateUserOperationImpl(
         idFrom: UUID,
         idTo: UUID,
     ) {
-        machineStorage.getAll().values.forEach {
+        machineStorage.getAll().forEach {
             if (it.specialist == idFrom) {
                 it.specialist = idTo
             }

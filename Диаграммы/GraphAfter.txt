@@ -1,0 +1,128 @@
+flowchart TD
+
+    subgraph layer1 [" "]
+        direction LR
+        subgraph nodes1 [" "]
+            A["DeleteLaunderetteHandler.invoke()"]:::typeA
+            B["GetAllMachinesHandler.invoke()"]:::typeA
+            B1["AddNewUserHandler.invoke()"]:::typeA
+        end
+        L1["Обработчики запросов"]
+    end
+
+    subgraph layer2 [" "]
+        direction LR
+        subgraph nodes2 [" "]
+            G["Op2.delete()"]:::typeA
+            Len2["jsonBodyLens()"]:::typeB
+            JSON1["correct()"]:::typeA
+            Op3["Op1.getAll()"]:::typeA
+            Op4["Op3.createUser()"]:::typeA
+            Op5["Op4.get()"]:::typeA
+        end
+        L2["Обработка данных"]
+    end
+
+    subgraph layer3 [" "]
+        direction LR
+        subgraph nodes3 [" "]
+            C["getAll()"]:::typeA
+            D["get()"]:::typeA
+            E["add()"]:::typeA
+            F["remove()"]:::typeA
+            F1["contains()"]:::typeA
+            F2["filter()"]:::typeA
+            F3["getEmail()"]:::typeB
+        end
+        L3["Методы хранилищ/объектов"]
+    end
+
+    subgraph layer4 [" "]
+        direction LR
+        subgraph nodes4 [" "]
+            U1["getAll()"]:::typeA
+            U2["get()"]:::typeA
+            U3["add()"]:::typeA
+            U4["remove()"]:::typeA
+            U5["contains()"]:::typeA
+            U6["filter()"]:::typeA
+        end
+        L4["Обобщенные методы хранилищ/объектов"]
+    end
+
+    subgraph layer5 [" "]
+        direction LR
+        subgraph nodes5 [" "]
+            I[".remove()"]:::typeA
+            I1[".containsKey()"]:::typeB
+            I2[".getOrDefault()"]:::typeB
+            I3[".filter()"]:::typeB
+            I4["Обращение по ключу"]:::typeB
+            I5[".forEach()"]:::typeB
+            I6[".values"]:::typeB
+            I7[".sortedWith"]:::typeB
+        end
+        L5["Средства языка Kotlin"]
+    end
+
+    subgraph Legend ["Легенда"]
+        direction LR
+        Leg1["Действия"]:::typeA
+        Leg2["Вычисления"]:::typeB
+        Leg3["Данные"]:::typeC
+    end
+
+    layer3 ~~~ Legend
+
+    A --> G
+    A --> Op3
+    A --> Len2
+    A --> JSON1
+    B --> JSON1
+    B1 --> JSON1
+    B1 --> F3
+    JSON1 --> I5
+    B --> Len2
+    B --> Op3
+    C --> U1
+    D --> U2
+    E --> U3
+    F --> U4
+    F1 --> U5
+    F2 --> U6
+    U5 --> I1
+    U6 --> I3
+    Op3 --> I7
+    Op3 --> C
+    B1 --> I2
+    B1 --> Op4
+    B1 --> Op5
+    Op4 --> C
+    Op4 --> E
+    Op4 --> F1
+    L2 --> D
+    Op5 --> C
+    Op5 --> I5
+    G --> F
+    G --> C
+    G --> I5
+    U3 --> I1
+    U3 --> I4
+    U4 --> I
+    U2 --> I2
+    U1 --> I6
+    Op5 --> F3
+
+    classDef typeA fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#856404,font-size:20px;
+    classDef typeB fill:#cce5ff,stroke:#007bff,stroke-width:2px,color:#004085,font-size:20px;
+    classDef typeC fill:#d4edda,stroke:#28a745,stroke-width:2px,color:#155724,font-size:20px;
+
+    classDef note fill:none,stroke:none,color:#555,font-style:italic,text-align:left,font-size:20px;
+    class L1,L2,L3,L4,L5 note;
+
+    style nodes1 fill:none,stroke:none;
+    style nodes2 fill:none,stroke:none;
+    style nodes3 fill:none,stroke:none;
+    style nodes4 fill:none,stroke:none;
+    style nodes5 fill:none,stroke:none;
+    style Legend fill:#f8f9fa,stroke:#dee2e6,stroke-dasharray: 5 5;

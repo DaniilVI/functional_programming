@@ -28,7 +28,7 @@ class GetAllUsersHandler(
                 put("Id", it.id.toString())
                 put("Name", it.name)
                 put("RegistrationDateTime", it.registrationDateTime.format(ISO_LOCAL_DATE_TIME))
-                put("Email", it.email)
+                put("Email", it.getEmail())
             }
         }
         return node
